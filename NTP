@@ -1,0 +1,39 @@
+Configure your system so that it is a NTP client of time.google.com
+
+
+Step.1) Install chrony (if not installed)
+
+yum install chrony -y
+
+
+Step.2) Configure time server
+
+vi /etc/chrony.conf
+server time.google.com iburst
+
+
+Step.3) Enable and start chronyd
+
+systemctl enable --now chronyd
+
+
+Step.4) Check time sync status
+
+chronyc sources
+
+You should see something like:
+
+*.google.com    1  10   377    30    +0.000123  -0.000456  0.002
+
+
+Step.5) Display current date/time
+
+timedatectl
+
+You should see something like:
+
+System clock synchronized: yes
+NTP service: active
+
+if not then, timedatectl set-ntp true
+
