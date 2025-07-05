@@ -1,0 +1,30 @@
+Set the recommended tuned profile for your system.
+
+
+Step.1) Install the tuned, start it and enable it
+                 
+yum install tuned -y
+systemctl start tuned
+systemctl enable tuned
+
+
+Step.2) Check the available profiles
+                
+tuned-adm profile
+
+
+Step.3) Check which profile is currently active.
+                 
+tuned-adm active
+
+
+Step.4) Check which profile is recommended for us
+                
+tuned-adm recommend
+
+
+Step.5) Set the virtual-guest profile.
+                 
+tuned-adm profile virtual-guest
+
+
