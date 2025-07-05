@@ -1,6 +1,7 @@
+Q>
 Configure your system so that it is a NTP client of time.google.com
 
-
+A>
 Step.1) Install chrony (if not installed)
 
 yum install chrony -y
@@ -35,5 +36,5 @@ You should see something like:
 System clock synchronized: yes
 NTP service: active
 
-if not then, timedatectl set-ntp true
+If not then timedatectl set-ntp true
 
