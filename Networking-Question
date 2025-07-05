@@ -1,0 +1,44 @@
+You're a system administrator. You have been asked to configure the network settings of a RHEL 9.6 server named server1. Use the following details unless specified otherwise:
+IP: 192.168.0.50/24
+Gateway: 192.168.0.1
+DNS: 8.8.8.8
+Interface:enp1s0
+
+
+
+Step. 1) Check the current IP and hostname
+Check and note the IP addresses configured: ip a
+Check the system's hostname: hostnamectl
+
+
+Step. 2) Change the Hostname
+Change the hostname to server1.example.com permanently.
+
+hostnamectl set-hostname server1.example.com
+
+
+Step. 3) Configure Static IP using nmcli
+
+nmcli connection show
+nmcli connection modify “enp1s0” ipv4.address 192.168.0.50/24 ipv4.gateway 192.168.0.1 ipvd4.dns 8.8.8.8 ipv4.method static
+nmcli connection up enp1s0
+
+
+
+Step. 4) Verify the Changes
+
+To check hostname	                                      hostname
+To check ip address	                                    ip a
+To check gateway	                                      route -n
+To check DNS	                                          cat /etc/resolv.conf
+ping gateway to check the connectivity	                ping 192.168.55.1
+
+
+
+
+
+
+
+
+
+
