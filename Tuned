@@ -1,6 +1,7 @@
+Q>
 Set the recommended tuned profile for your system.
 
-
+A>
 Step.1) Install the tuned, start it and enable it
                  
 yum install tuned -y
