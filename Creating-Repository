@@ -1,0 +1,20 @@
+Configure your server-a VM repository installed the packages disrtibution is available via YUM
+Base os URL = http://content.example.com/rhel9.0/x86_64/dvd/BaseOS
+App stream URL= http://content.example.com/rhel9.0/x86_64/dvd/AppStream
+
+
+yum repolist all (first check if your repository is configured or not from before)
+We need to create a file local.repo in /etc/yum.repos.d/local.repo and we need to include below lines in local.repo
+
+vi local.repo
+[BaseOS]
+name=BaseOS
+baseURL=http://content.example.com/rhel9.0/x86_64/dvd/BaseOS
+gpgcheck=0
+enabled=1
+
+[AppStream]
+name=AppStream
+baseURL= http://content.example.com/rhel9.0/x86_64/dvd/AppStream
+gpgcheck=0
+enabled=1
