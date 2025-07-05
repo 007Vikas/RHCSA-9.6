@@ -1,0 +1,83 @@
+Q>
+Configure the SELinux
+Your web content has been configured in port 82 at the /var/www/html  directory (Don’t alter or remove any files in the directory). Make the content accessible. 
+Our server hostname is server1.example.com
+
+
+A>
+Step.1) Install the httpd, start it and enable it
+
+yum install httpd -y
+systemctl start httpd
+systemctl enable httpd
+
+
+Step.2) Put some file in /var/www/html  
+
+cd /var/www/html
+echo I love dogs > file1
+echo I love cats > file2
+
+
+Step.3) Use curl to see if you can access the file at ports 80 and 82
+
+curl server1.example.com:80/file1
+curl server1.example.com:80/file2
+
+curl server1.example.com:82/file1
+curl server1.example.com:82/file2
+
+we can access the file @ port 80 but not @ 82. 
+
+
+
+Step.4) Install the policycoreutils package (This package is necessary for using the semange command)
+
+yum install -y policycoreutils* 
+semanage port -l | grep http  (check whether port 82 is enabled or not, if not use the below command to add)
+semanage port -a -t http_port_t -p tcp 82 (-a= add, -t= type, -p=protocol)
+semanage port -l | grep http (verify if port 82 is added or not)
+
+
+
+Step.5) Install the firewalld, start it and enable it
+
+yum install firewalld -y 
+systemctl start firewalld
+systemctl enable firewalld
+
+
+Step.6) Add port 82 in firewalld, reload it and check if port 82 is added or not
+
+firewall-cmd --add-port=82/tcp --permanent
+firewall-cmd --reload
+firewall-cmd --list-all
+
+
+
+Step.7) Edit the vi /etc/httpd/conf/httpd.conf and restat httpd
+
+vi /etc/httpd/conf/httpd.conf
+And go to line 45
+Edit the listen value to 82 
+
+httpd -t (it should show syntax ok)
+systemctl restart httpd
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
