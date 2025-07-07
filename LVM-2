@@ -1,0 +1,87 @@
+Q>
+Create a logical volume lvdata of size 500mb and volume group vgdata. Format it with XFS and mount it permanently at /mnt/data.
+
+
+A>
+Below Information is given:
+Create LV named lvdata
+VG named vgdata
+Size: 500MB
+Format: XFS
+Mount point: /mnt/data
+
+
+Step.1) Decide which disk to choose for partitioning
+
+lsblk   [ We chose disk -> sdb]
+
+
+Step.2) Create a partition for LVM
+fdisk /dev/sdb 
+    n (for new)
+    p (for primary)
+    1(for partition number)
+    Press enter (first sector)
+    +2G (Last sector)
+    t (for type)
+    8e (for LVM)
+    w (to save and exist)
+
+
+Step.3) Update the Partition Table
+ partprobe
+
+Step.4) Create a physical volume (PV)
+pvcreate /dev/sdb2
+
+
+Step.5) Create the Volume Group (VG) -> vgdata
+vgcreate vgdata /dev/sdb2
+
+verify:    vgdisplay vgdata
+
+
+Step.6) Create the Logical Volume (LV) -> lvdata
+lvcreate -L 500M -n lvdata vgdata
+
+verify:    lvdisplay
+
+
+Step.7) Format the logical volume with ext3 filesystem
+mkfs.xfs /dev/vgdata/lvdata
+
+Step.8) Create mount point directory
+ mkdir -p /mnt/data
+
+Step.9) Make it permanent in /etc/fstab to survive reboot
+vi /etc/fstab
+/dev/vgdata/lvdata /mnt/data xfs defaults 0 0
+
+
+Step.10) Mount the logical volume
+mount -a
+or 
+mount /dev/vgdata/lvdata /mnt/data
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
