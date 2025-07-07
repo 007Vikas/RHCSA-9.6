@@ -1,0 +1,24 @@
+Q> 
+Your system has a logical volume named /dev/vgdata/lvdata mounted at /mnt/data. Increase its size by 200MB.
+
+A>
+Step.1) Check how many space is there in vg and in /mnt/data
+
+vgdisplay vgdata
+
+df -h
+
+/dev/mapper/vgdata-lvdata   436M 29M  408M 7% /mnt/data
+
+Step.2)  Extend the Logical Volume by 200MB
+lvextend -L +200M /dev/vgdata/lvdata
+
+
+Step.3) Grow the XFS Filesystem
+xfs_growfs /mnt/data
+
+
+Step.4) Verify the New Size
+df -h /mnt/data
+
+/dev/mapper/vgdata-lvdata   636M 30M  607M 5% /mnt/data
