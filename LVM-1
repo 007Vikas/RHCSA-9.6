@@ -1,0 +1,79 @@
+Q>
+Create 1 logical volume named database and it should be on datastore volume group with size 50 extent and assign the filesystem as ext3. 
+The datastore volume group extend should be 8Mb (mount the logical volume under mount point /mnt/database).
+
+
+A>
+Below Information is given:
+VG Name: datastore
+LV Name: database
+LV Size: 50 extents
+Extent Size of VG: 8MB
+Filesystem Type: ext3
+Mount Point: /mnt/database
+
+Step.1) Decide which disk to choose for partitioning
+ 
+lsblk   [ We choosen disk -> sdb]
+
+Step.2) Create partition for LVM
+
+ fdisk /dev/sdb 
+    n (for new)
+    p (for primary)
+    1(for partition number)
+    Press enter (first sector)
+    +2G (Last sector)
+    t (for type)
+    8e (for swap)
+    w (to save and exist)
+
+
+Step.3) Update the Partition Table
+ 
+partprobe
+
+Step.4) Create a physical volume (PV)
+
+pvcreate /dev/sdb2
+
+Step.5) Create the volume group (VG) with 8MB extent size
+
+vgcreate -s 8M datastore /dev/sdb2 (-s for extend)
+
+verify:    vgdisplay datastore
+look for:  PE Size               8.00 MiB
+
+Step.7) Create the logical volume with 50 extents
+ lvcreate -l 50 -n database datastore (-l for logical extent)
+
+verify:    lvdisplay
+look for:  Current LE     50
+
+
+Step.9) Format the logical volume with ext3 filesystem
+mkfs.ext3 /dev/datastore/database
+
+
+Step.10) Create mount point directory
+ mkdir -p /mnt/database
+
+Step.11) Make it permanent in /etc/fstab to survive reboot
+ vi /etc/fstab
+/dev/datastore/database /mnt/database ext3 defaults 0 0 
+
+
+Step.12) Mount the logical volume
+mount -a
+or
+mount /dev/datastore/database /mnt/database
+
+
+
+
+
+
+
+
+
+
