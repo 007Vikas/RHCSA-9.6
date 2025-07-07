@@ -25,7 +25,7 @@ Step.2) Create partition for LVM
     Press enter (first sector)
     +2G (Last sector)
     t (for type)
-    8e (for swap)
+    8e (for LVM)
     w (to save and exist)
 
 
@@ -41,7 +41,7 @@ Step.5) Create the volume group (VG) with 8MB extent size
 
 vgcreate -s 8M datastore /dev/sdb2 (-s for extend)
 
-verify:    vgdisplay datastore
+Verify:    vgdisplay datastore
 look for:  PE Size               8.00 MiB
 
 Step.7) Create the logical volume with 50 extents
