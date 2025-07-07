@@ -1,0 +1,50 @@
+Q> Create a swap partition of 512MB size.
+
+
+A>
+
+Step.1) check how many swap we have initially before stating our operation.
+
+free -h
+
+
+Step.2) Decide which disk to choose for partitioning 
+
+lsblk   [ We choosen disk -> sdb]
+
+Step.3) Create partition for Swap
+
+fdisk /dev/sdb 
+   n (for new)
+   p (for primary)
+   1(for partition number)
+   Press enter (first sector)
+   +512M (Last sector)
+   t (for type)
+   82 (for swap)
+   w (to save and exist)
+
+
+Step.4) Update the Partition Table
+
+partprobe
+
+Step.5) Format the partition as swap
+
+mkswap /dev/sdb1
+
+Step.6) lsblk -f ( to verify)
+
+Step.7) Make it permanent in /etc/fstab to survive reboot
+
+vi /etc/fstab
+<UUID> none   swap    swap   defaults 0 0 
+
+
+Step.8) Enable the swap partition and Verify
+
+swapon -a
+swapon --show 
+
+
+Step. 9) Check if swap is increased or not using lsblk and free -h(compare with above)
