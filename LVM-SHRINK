@@ -1,0 +1,35 @@
+Q> Your system has a logical volume named /dev/vgdata/lvdata mounted on /mnt/data. It is currently 700MB in size, but the logs are small and you’ve been asked to shrink it to 500MB.
+
+
+A>
+We have been given:
+LV path: /dev/vgdata/lvdata
+Mount point: /mnt/data
+Current size: 700MB
+Target size: 500MB
+Filesystem: ext4
+
+
+
+Step.1) Check the space using lsblk
+
+Step.2) Unmount the LV  -> /mnt/data
+umount /mnt/data
+
+Step.3) Check and Repair Filesystem [This ensures there are no errors before shrinking the filesystem.]
+e2fsck -f /dev/vgdata/lvdata
+
+
+Step.4) Shrink the Filesystem to 500MB [This shrinks only the ext4 filesystem inside the LV.]
+resize2fs /dev/vgdata/lvdata 500M
+
+
+Step.5) Shrink the Logical Volume to match [Now we are resizing the logical volume itself to 500MB.]
+lvreduce -L 500M /dev/vgdata/lvdata
+
+
+Step.6) Remount the Filesystem
+mount /dev/vgdata/lvdata /mnt/data
+
+
+Step.7) Verify using df -h
