@@ -1,0 +1,24 @@
+Q>
+Resize the logical volume size to 100 extents on /mnt/database directory
+
+
+A>
+Step.1) We will check how many it was before using lvdisplay
+
+Current LE             50
+
+
+Step2.) We will extend 
+
+lvextend -l 100 -r /dev/datastore/database    [ -l = specifies the number of logical extents instead of size in MB ; -r = Resize the Filesystem (XFS)]
+
+
+Step.3) Verify
+
+lvdisplay
+
+
+Current LE             50
+
+
+
