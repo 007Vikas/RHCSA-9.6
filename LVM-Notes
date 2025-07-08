@@ -1,0 +1,80 @@
+What is PE (Physical Extent)?
+
+In LVM, a Physical Extent (PE) is the smallest chunk of storage space allocated on a physical volume (PV).
+
+Think of it as a "building block" of storage.
+
+When you create a volume group (VG), LVM divides all the available space on the PVs into these small blocks (PEs).
+
+The size of a PE is defined when you create the VG (e.g., 4MB, 8MB, etc.)
+
+
+Total PE, Free PE & Allocated PE
+
+Total PE      :	Total PE represents the total number of physical extents available in a volume group
+Allocated PE  :	Allocated PE refers to the number of PEs that have been assigned to logical volumes (LVs) within the volume group. These PEs are no longer available for other uses because they are part of the LVs
+Free PE	      : Free PE is the number of unused PEs in the volume group. These are the PEs you can use to create or extend logical volumes
+
+
+Example scenario:
+
+You have a 50GB VG (my_vg).
+PE size is 4MB.
+Total PE = 50GB / 4MB = 12800 PEs.
+
+You Create a Logical Volume:
+LV size = 10GB.
+PEs used = 10GB / 4MB = 2560 PEs.
+
+Updated State:
+Total PE: 12800
+Allocated PE: 2560
+Free PE: 12800 - 2560 = 10240
+
+
+
+
+/etc/fstab Structure
+
+The /etc/fstab file in Linux is a configuration file that tells the system which file systems (like disks, partitions, or network shares) to mount automatically and where to mount them when the system starts.
+Instead of manually mounting disks every time, /etc/fstab automates the process. It stores the details about all the file systems you want to mount permanently.
+
+<file system>  <mount point>  <type>  <options>  <dump>  <pass>
+
+
+File System   :	The disk or partition to mount
+Mount Point   :	The directory where the file system will be accessible (e.g., /, /home, /mnt/usb).
+Type          :	The type of file system
+Options       :	Settings for how the file system is mounted.
+Dump          :	Determines if the file system should be backed up using the dump command
+Pass          :	Determines the order in which file systems are checked for errors during boot
+
+
+
+
+
+
+Standard Partiton | Not LVM
+
+n        (new)
+p        (primary)
+1         (Partition number)
+enter           (First sector)
++2G               (Last sector)
+## No need to Change the type to LVM ##
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
