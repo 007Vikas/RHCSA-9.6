@@ -1,0 +1,20 @@
+Q>
+Create a collaborative directory /shared/admin with the following Characteristics:
+a) Group ownership of /shared/admin is admin
+b) The directory should be readable, writable, and accessible to members of admin, but not by any other user.(It is understood that root has access to all files and directories on the system).
+c) Files created in /shared/admin automatically have group ownership set to the admin group.  
+
+
+A>
+a)  mkdir -p /shared/admin   (-p=parent directory)
+     chgrp admin /shared/admin
+     To verify: [root@server1 shared]# ls -ld admin
+
+
+b) chmod 770 /shared/admin
+   To verify: ls -ld /shared/admin
+
+c) chmod g+s /shared/admin
+   To verify: ls -ld /shared/admin
+
+we can see s is added, so whatever file we create inside this directory, will have group as admin
