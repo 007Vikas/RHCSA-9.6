@@ -1,0 +1,21 @@
+Q>
+Configure ACL permissions:
+Copy the file /etc/fstab to /var/tmp. Configure the permission of /var/tmp/fstab so that:  
+a) The file /var/tmp/fstab is owned by root user.
+b) The file /var/tmp/fstab belongs to the group root.
+c) The file /var/tmp/fstab should not be executable by anyone.
+d) The user Harry is able to read and write by /var/tmp/fstab.
+e) The user Natasha can neither read or write /var/tmp/fstab
+f) All other’s account(current/future) have the ability to read /var/tmp/fstab
+
+
+
+A>
+cp /etc/fstab /var/tmp
+a),b) chown root:root /var/tmp/fstab
+c) chmod 666 /var/tmp/fstab
+d) setfacl -m u:harry:rw /var/tmp/fstab
+e) setfacl -m u:natasha:--- /var/tmp/fstab
+    To verify: getfacl /var/tmp/fstab
+
+f) That is default permission, no need to do anything.
