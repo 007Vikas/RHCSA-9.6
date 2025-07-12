@@ -1,0 +1,31 @@
+Q>Create the following users, groups, and group memberships.
+a) A group named admin
+b) A user harry who belongs to admin as a secondary group.
+c) A user natasha who belongs to admin as secondary group
+d) A user sarah who does not have access to an interactive shell on the system and who is not member of admin group
+e) The users harry,natasha and sarah should all have password of password.
+f) admin group has access to add user in the server
+g) harry user has access to set passwd for users without asking sudo passwd
+h) Create a new User with UID 1326, Set username & password as allies.
+
+
+A>
+a) groupadd admin
+b) useradd -G admin harry (-G=Secondary, -g=Primary)
+c) useradd -G admin natasha (-G=Secondary, -g=Primary)
+d) useradd -s /sbin/nologin sarah
+e) passwd harry
+   passwd natasha
+   passwd sarah 
+f) which useradd
+   /usr/sbin/useradd
+g) which passwd
+   /usr/bin/passwd
+
+In visudo
+%admin ALL=(ALL) NOPASSWD: /usr/sbin/useradd, /usr/bin/passwd
+harry ALL=(ALL) NOPASSWD: /usr/bin/passwd
+
+h)
+useradd -u 1326 alies
+passwd alies  (and keep the password as alies)
