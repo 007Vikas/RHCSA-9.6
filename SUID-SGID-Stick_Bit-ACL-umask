@@ -1,0 +1,125 @@
+✅ SUID (Set User ID)
+✅ SGID (Set Group ID)
+✅ Sticky Bit
+✅ ACL (Access Control Lists)
+✅ umask (User file creation permissions)
+
+================================================================================================================================================================================
+Q.1> What does the SUID permission do on a file? How do you set it?
+
+A.1> chmod u+s filename
+
+SUID allows a file to be executed with the permissions of its owner, not the user running it.
+
+================================================================================================================================================================================
+
+Q.2> You want a script /opt/script.sh to always run with the permissions of its owner (root).Which special permission will you set, and how?
+
+A.2> chmod u+s /opt/script.sh
+
+Note: SUID only works on executables, not shell scripts on some systems due to security.
+
+===========================================================================================================================================================================
+
+Q.3> Explain what SGID means when applied to a directory.
+
+A.3> When SGID is applied to a directory, all files/folders created inside it inherit the parent directory's group.
+
+=============================================================================================================================================================================
+
+Q.4> Set the SGID on /project directory so that any new files created inside inherit the group developers.
+
+A.4> chmod g+s /project
+
+==========================================================================================================================================================================
+
+Q.5> What does the Sticky Bit do on a directory like /shared?
+
+A.5> Only the owner of files inside /shared can delete their own files.
+
+===========================================================================================================================================================================
+
+Q.6> How do you set the Sticky Bit on /shared?
+
+A.6> chmod +t /shared
+
+===========================================================================================================================================================================
+
+Q.7> Give read, write access to user vikas on file /data/report.txt, without changing the file’s owner or group.
+
+A.7> setfacl -m u:vikas:rw /data/report.txt
+
+===========================================================================================================================================================================
+
+Q.8> How do you check ACLs set on a file?
+
+A.8> getfacl filename
+
+============================================================================================================================================================================
+
+Q.9> The default umask for a normal user is 0022.What permissions will a new file and new directory get?
+
+A.9> File: 644
+     Directory: 755
+
+==============================================================================================================================================================================
+     
+Q.10> Change the umask temporarily to 0007 and create a file test.txt.What permissions will it have?
+
+A.10> 666 - 007 = 660 (rw-rw----)
+
+
+==============================================================================================================================================================================
+Q.11> Create a file /opt/secure.sh and make sure that whoever executes it, runs it as the file's owner.
+
+A.11> touch /opt/secure.sh
+      chmod u+s /opt/secure.sh
+
+❗ But SUID works only on binaries, not on shell scripts (RHEL ignores it on scripts for security reasons).You won’t be asked to apply SUID on .sh scripts
+
+=================================================================================================================================================================================
+Q.12> Create a shared directory /teamspace.
+Group: developers
+Make sure all new files created inside inherit the group developers.
+
+A.12> mkdir /teamspace
+      chown root:developers /teamspace
+      chmod g+s /teamspace
+
+===================================================================================================================================================================================
+Q.13> Secure /teamspace so that only the owner of a file can delete it — not even other group members.
+
+A.13> chmod +t /teamspace
+
+====================================================================================================================================================================================
+Q.14> Give read + execute access on /project/code.sh to user ravi, without changing ownership or group.
+
+A.14> setfacl -m u:ravi:rx /project/code.sh
+
+=======================================================================================================================================================================================
+Q.15> You have a file /var/log/audit.txt Grant read-only access to user payal using ACL.
+
+A.15> setfacl -m u:payal:r /var/log/audit.txt
+
+========================================================================================================================================================================================
+Q.16> Check and show all ACL permissions set on /var/log/audit.txt.
+
+A.16> getfacl /var/log/audit.txt
+
+======================================================================================================================================================================================
+Q.17> What’s the meaning of the following permission:
+      -rwsr-xr-- on /usr/bin/special?
+
+A.17> SUID is set (s in owner execute). When a user runs this file, it executes with owner's privileges, not their own.
+
+==========================================================================================================================================================================================
+Q.18> Temporarily change the umask to 0027.
+      What permissions will be applied to:
+      A new file?
+      A new directory?
+
+A.18> File: 666 - 027 = 640
+      Dir: 777 - 027 = 750
+
+========================================================================================================================================================================================
+
