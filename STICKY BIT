@@ -1,0 +1,19 @@
+Q>
+Create a directory /shared/projects/
+a)	File ownership should go to Bittu
+
+b)	Ensure no users can delete owner files inside /shared/projects/ other than file owner.
+
+
+A>
+Create a directory.     
+mkdir -p /shared/projects/
+
+Make sure user Bittu is present.        
+id Bittu
+
+a) Make the directory owner Bittu, group should be root.           
+   chown Bittu:root /shared/projects/
+
+b) Set the sticky bit on the directory.
+   chmod +t /shared/projects/
