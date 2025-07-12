@@ -1,0 +1,21 @@
+Q> 
+Set the permission
+    a) All new creating files for user natasha as -r--------- as default permission
+    b) All new creating directories for user natasha as dr-x------ as default permission
+
+
+A>
+Directory default umask: 777
+Files default umask: 666  
+
+First thing switch to user natasha and check the umask which is 0022
+
+We need to make the permanent changes in .bash_profile file which is present in /home/natasha
+vi .bash_profile
+
+umask 277
+
+Now source it and check umask again: source .bash_profile which is 0277
+
+
+To verify: Make 1 file and directory and check its permission
