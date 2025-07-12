@@ -1,0 +1,117 @@
+✅ User management (useradd, usermod, passwd)
+✅ Group management (groupadd, usermod -aG)
+✅ Password expiry management (chage)
+✅ Sudo configuration using visudo
+
+======================================================================================================================================================
+Q.1> Create a user dev1 with:
+     UID: 2020
+     Primary group: devteam (GID: 3030)
+     Secondary group: sudo
+
+A.1> groupadd -g 3030 devteam
+     useradd -u 2020 -g devteam -G wheel dev1
+
+======================================================================================================================================================
+
+
+Q.2> Change the default shell for user amit to /bin/bash.
+
+A.2> usermod -s /bin/bash amit
+
+========================================================================================================================================================
+
+Q.3> What is the difference between usermod -G and usermod -aG?
+
+A.3> usermod -G = replaces existing secondary groups and add new secondary group
+     usermod -aG = appends previous secondary groups to the new secondary group
+
+============================================================================================================================================================
+
+Q.4> How do you lock and unlock a user account named guest1?
+
+A.4> lock: usermod -L guest1
+     unlock: usermod -U guest1
+
+=============================================================================================================================================================
+
+Q.5> Set the password of user testuser to expire after 10 days from now.
+
+A.5> chage -E $(date -d "+10 days" +%F) testuser
+
+===============================================================================================================================================================
+
+Q.6> Force a user hari to change their password at next login.
+
+A.6> chage -d 0 hari  [-d 0 sets the last password change date to epoch (forces change on next login).]
+
+====================================================================================================================================================================
+
+
+Q.7> Give user admin1 permission to run only the systemctl restart httpd command without password using visudo.
+
+A.7> admin1 ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart httpd
+     Add this in visudo using: visuo
+
+==========================================================================================================================================================================
+
+Q.8> Check when the password of user suraj will expire.
+
+A.8> chage -l suraj
+
+==============================================================================================================================================================
+
+Q.9> Set the account expiry date for user vikas to 31st December 2025.
+
+A.9> chage -E 2025-12-31 vikas  [Date format must be YYYY-MM-DD]
+
+===============================================================================================================================================================================
+
+Q.10> Delete user bunty and also delete their home directory.
+
+A.10> userdel -r bunty   [-r deletes the home directory and mail spool too.]
+
+========================================================================================================================================================================================
+
+Q.11> Create a group called devops with GID 2500. Then add user shilpa to that group as a secondary group.
+
+A.11> groupadd -g 2500 devops  
+      usermod -aG devops shilpa
+
+=======================================================================================================================================================================================
+
+Q.12> Give user payal permission to run only these 2 commands without password via sudo:
+          /usr/sbin/useradd
+          /usr/sbin/userdel
+What entry will you add in visudo?
+
+A.12> payal ALL=(ALL) NOPASSWD: /usr/sbin/useradd, /usr/sbin/userdel    [(ALL) = can run as any user (standard for sudo)]
+
+=======================================================================================================================================================================================
+
+Q.13> What file controls the default settings for newly created users by useradd?
+      (Hint: home dir, shell, UID range)
+
+A.13> /etc/default/useradd
+
+=======================================================================================================================================================================================
+
+Q.14> Which command shows the current password aging settings for user neha?
+
+A.14> chage -l neha
+
+==========================================================================================================================================================================================
+
+Q.15> Create a user kumar with:
+           Custom shell: /bin/zsh
+           Home directory: /data/kumar
+
+A.15> useradd -d /data/kumar -s /bin/zsh -m kumar  [-m ensures that /data/kumar is created. Without it, the directory won’t be created automatically.]
+
+============================================================================================================================================================================================
+
+Q.16> Create a user dev but do not create a home directory for them.
+
+A.16> useradd -M dev  [-M tells useradd not to create a home directory.]
+
+
