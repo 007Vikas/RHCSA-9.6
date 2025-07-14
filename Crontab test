@@ -1,0 +1,42 @@
+Q> Create a cron job for user vikas that runs /opt/backup.sh every day at 2:30 AM.
+
+A> crontab -eu vikas
+  30 2 * * * /opt/backup.sh
+
+==============================================================================================================
+Q> How do you list all cron jobs for the user vikas?
+
+A> crontab -lu vikas
+
+=============================================================================================================
+Q> Schedule a job to run /usr/sbin/logrotate every Sunday at 11:55 PM.
+
+A> 55 23 * * 0 /usr/sbin/logrotate
+
+=============================================================================================================
+Q> How do you remove all crontab entries for the current user?
+
+A> crontab -r
+
+===============================================================================================================
+Q> Write a cron expression to run /usr/local/bin/check.sh every 10 minutes.
+
+A> */10 * * * * /usr/local/bin/check.sh
+
+===============================================================================================================
+Q> Where is the user-specific cron file stored (when you use crontab -e)?
+
+A> /var/spool/cron/username
+
+================================================================================================================
+Q> What’s the purpose of /etc/cron.allow and /etc/cron.deny?
+
+A>
+/etc/cron.allow: to allow the users who can schedule job using crontab
+/etc/cron.deny: to deny the users who can schedule job using crontab
+
+===============================================================================================================
+Q> What’s wrong with this line in crontab? 0 25 * * * /opt/script.sh
+
+A> Hours cannot be 25.Valid hour values: 0–23
+
