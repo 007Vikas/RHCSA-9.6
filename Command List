@@ -1,0 +1,12 @@
+☢️ ACL
+
+✅To give read permission to specific user = 	setfacl -m u:vikas:4 abc.txt or setfacl -m u:vikas:w abc.txt
+
+✅To remove read permission for specific user = 	setfacl -x u:vikas abc.txt
+
+✅To give all permission to group. (UNIX here is group name) = 	setfacl -m g:UNIX:7 abc.txt
+
+✅To remove all permission of group. (UNIX here is group name) = 	setfacl -x g:UNIX abc.txt
+
+===========================================================================================================================================================================
+
