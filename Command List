@@ -9,4 +9,35 @@
 ✅To remove all permission of group. (UNIX here is group name) = 	setfacl -x g:UNIX abc.txt
 
 ===========================================================================================================================================================================
+☢️ chage
 
+✅Create a user, vivek, who must change their password at first login. (Password is Redhat@123)	
+useradd vivek
+echo "Redhat@123" | passwd --stdin vivek
+chage -d 0 vivek
+
+✅Set the password of user vikas to Redhat@123	
+echo “Redhat@123” | passwd –stdin vikas
+
+✅Check when the user’s password is expiring	
+chage -l vikas
+
+✅Force user vikas to change the password at next login	
+chage -d 0 vikas
+
+✅Set account expiry on 31 Dec 2025	
+chage -E 2025-12-31 vikas
+
+✅Set the password for user vikas to expire in 30 days	
+chage -M 30 vikas
+
+✅ Password never expires for vikas	
+chage -M -1 vikas
+
+✅Lock the user account vikas	
+passwd -l vikas
+
+✅Unlock the user account vikas	
+passwd -u vikas
+
+==============================================================================================================================================
