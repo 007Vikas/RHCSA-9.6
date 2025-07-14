@@ -1,0 +1,26 @@
+Q.1>
+a) Set a cron job for harry on 12:30 at noon print “hello” using echo command.
+b) Deny the user natasha to create a cronjob in the system.
+
+A.1> 
+a)
+crontab -eu harry
+30 12 * * * /bin/echo “hello”
+To verify: crontab -lu harry
+
+
+b) Put the name natasha in the file cron.deny
+vi /etc/cron.deny
+natasha
+
+To verify: switch to natasha user and try to run crontab -e
+
+================================================================================================================================================
+
+Q.2> Create a cron job for the user Bittu that runs the command “uptime” every 5 minutes and saves the output to /home/Bittu/uptime.log
+
+A.2>
+Step1.) Check if cron is installed or not. yum install cronie -y  (its usually installed in exam)
+Step.2) Now, we have to create user Bittu.   useradd Bittu
+Step.3) Use command crontab -eu Bittu to edit the crontab file
+Step.4) Verify using crontab -lu Bittu
