@@ -1,0 +1,62 @@
+Q>
+You are asked to deploy a containerized web application.
+
+1.) Create a directory /opt/webfiles on the host.
+
+2.) Place a test file named index.html inside it with the content: Welcome to Podman.
+
+3.) Run a container named webserver using the httpd image:
+
+      a) Mount /opt/webfiles to /usr/local/apache2/htdocs/ inside the container.
+
+      b) Use the correct SELinux label to avoid access issues.
+
+      c) Expose container port 80 to host port 8080.
+
+      d) Run it in detached mode.
+
+4.) Ensure the container starts automatically on system reboot for user student.
+
+
+
+A>
+Step.1) Check if httpd image is present
+
+        podman images
+
+If not present, use: podman pull httpd
+
+
+Step.2) Create directory and add content
+
+        mkdir -p /opt/webfiles
+        echo "Welcome to Podman" >> /opt/webfiles/index.html
+
+
+Step.3) Run container
+
+        podman run -d --name webserver -v /opt/webfiles:/usr/local/apache2/htdocs/:z -p 8080:80 httpd
+
+
+Step.4) Enable lingering
+
+        loginctl show-user student
+        loginctl enable-linger student
+
+
+Step.5) Generate systemd service
+
+        mkdir -p /home/student/.config/systemd/user
+        cd /home/student/.config/systemd/user
+        podman generate systemd --name webserver --files  [This creates container-webserver.service in the current directory.]
+
+
+Step.6) Reload systemd and enable service
+
+        systemctl --user daemon-reload
+        systemctl --user enable --now container-webserver.service
+
+
+
+
+
