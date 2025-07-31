@@ -44,6 +44,36 @@ hostnamectl set-hostname server1.example.com
 
 
 
+What is a zone in firewalld?
+
+In firewalld, a zone is like a security level or trust level for your network connections.
+A zone in firewalld is a set of rules that determine the level of trust you have in the network you're connected to.
+Different zones allow or block different services, ports, and connections.
+
+Examples of Zones (from most strict to least strict):
+Zone	                      Trust Level	                                              What it means
+drop	                      🔴 Very strict	                                          All incoming connections are dropped.
+block	                      🛑 Strict                                               	All incoming are rejected with a message.
+public	                    🚫 Semi-secure	                                          For use in public areas. Limited services allowed.
+home	                      🏠 Trusted	                                              For your home LAN. More services are allowed.
+internal	                  🏢 Office                                                 LAN	Similar to home, used inside companies.
+trusted	                    ✅ Fully open	                                          All incoming connections are accepted.
+
+
+
+How does firewalld use zones?
+
+Each network interface (like eth0 or ens33) is assigned a zone. You then allow or deny services/ports in each zone.
+
+Check the current zone of the interface: firewall-cmd --get-zone-of-interface=eth0
+
+List allowed services in a zone: firewall-cmd --zone=public --list-services
+
+Change default zone: firewall-cmd --set-default-zone=home
+
+
+
+What is /etc/hosts
 
 
 
