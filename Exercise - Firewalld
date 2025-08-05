@@ -1,0 +1,84 @@
+Q.1> How do you permanently allow HTTP service on the default zone?
+
+A.1> firewall-cmd --permanent --add-service=http
+
+Explanation = This allows the http service (port 80) to be permanently in the default zone.
+
+=============================================================================================================================
+
+Q.2> Check which zone is assigned to interface eth0.
+
+A.2>  firewall-cmd --get-zone-of-interface=eth0
+
+Explanation = Shows which zone (public, home, etc.) is attached to eth0.
+=============================================================================================================================
+
+Q.3> How do you add port 8080/tcp temporarily?
+
+A.3> firewall-cmd --add-port=8080/tcp
+
+Explanation = We have not used --permanent, which means it adds the port temporarily until the next reboot or reload.
+
+===============================================================================================================================
+
+
+Q.4> How do you list all active zones and their rules?
+
+A.4> firewall-cmd --list-all-zones
+
+Explanation = Lists all zones with services, ports, interfaces, etc.
+
+=================================================================================================================================
+
+Q.5> Reload firewalld to apply permanent changes. What command do you use?
+
+A.5> firewall-cmd --reload
+
+Explanation = Applies any changes made with the --permanent flag.
+
+=================================================================================================================================
+
+
+Q.6> Block all incoming traffic in the public zone except SSH (permanently). How would you do that?
+
+A.6> 
+firewall-cmd --permanent --zone=public --remove-service=dhcpv6-client
+firewall-cmd --permanent --zone=public --remove-service=http
+firewall-cmd --permanent --zone=public --remove-service=https
+
+# (only keep SSH)
+firewall-cmd --permanent --zone=public --add-service=ssh
+firewall-cmd --reload
+
+====================================================================================================================================
+
+Q.7> Set the default zone to home. What command?
+
+A.7> firewall-cmd --set-default-zone=home
+
+=====================================================================================================================================
+
+
+Q.8> A custom service file /etc/firewalld/services/myapp.xml was created. How do you make firewalld recognise and apply it?
+
+A.8> 
+firewall-cmd --permanent --add-service=myapp
+firewall-cmd --reload
+
+Explanation: Custom XML must be in the correct folder; reloading applies it.
+
+=======================================================================================================================================
+
+Q.9> Command to list all services currently allowed in the public zone.
+
+A.9> firewall-cmd --zone=public --list-services
+
+Explanation = Only shows services (not ports or interfaces).
+
+========================================================================================================================================
+
+Q.10> Temporarily disable firewalld (without uninstalling it). What command?
+
+A.10> systemctl stop firewalld
+
+
