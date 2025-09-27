@@ -7,7 +7,7 @@
 Q.1> Create a user dev1 with:
      UID: 2020
      Primary group: devteam (GID: 3030)
-     Secondary group: sudo
+     Secondary group: wheel
 
 A.1> groupadd -g 3030 devteam
      useradd -u 2020 -g devteam -G wheel dev1
