@@ -5,10 +5,46 @@ Set the permission
 
 
 A>
-Directory default umask: 777
-Files default umask: 666  
+🔹 Default Creation Modes in Linux
+
+Files default umask: 666        ## Files: maximum 666 (rw-rw-rw-) → because execute (x) is never given by default.
+Directory default umask: 777    ## Directories: maximum 777 (rwxrwxrwx).
+The final permission = default max permission − umask.
 
 First thing switch to user natasha and check the umask which is 0022
+
+🔹 Part (a) Files >> -r---------
+
+Target permission = 400 (rw- for owner, nothing else).
+Default file permission = 666.
+
+So we calculate umask:
+
+666
+-400
+-----
+266  → umask = 266
+
+
+✅ Solution: For user natasha, set umask to 266 so that all new files will get 400.
+
+
+🔹 Part (b) Directories >> dr-x------
+
+Target permission = 500 (r-x for owner, nothing else).
+Default directory permission = 777.
+
+So we calculate umask:
+
+777
+-500
+-----
+277  → umask = 277
+
+
+✅ Solution: For user natasha, set umask to 277 so that all new directories will get 500.
+
+
 
 We need to make the permanent changes in .bash_profile file which is present in /home/natasha
 vi .bash_profile
@@ -17,5 +53,21 @@ umask 277
 
 Now source it and check umask again: source .bash_profile which is 0277
 
-
 To verify: Make 1 file and directory and check its permission
+
+
+⚠️ But here’s the catch:
+
+A single umask applies to both files and directories.
+
+You cannot directly make files = 400 and directories = 500 at the same time using just umask.
+
+👉 To achieve this exact requirement, you’d need to:
+
+Use umask to set a restrictive base (like 277).
+
+Then adjust file creation with a wrapper script or ACL.
+
+
+✅ RHCSA Exam Tip:
+In the real exam, they usually ask simpler umask-based defaults (like "set all new files to 640 and directories to 750"), which can be achieved with a single umask value.
