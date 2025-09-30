@@ -1,0 +1,187 @@
+✅ -exec
+✅ File permissions
+✅ Combined conditions
+✅ Ownership
+✅ Timestamps
+
+=============================================================================================================================================================
+
+Q.1> Find all files in /etc directory that are larger than 10MB.
+
+A.1> find /etc -type f -size +10M
+
+-type f: regular files
+-size +10M: files larger than 10 megabytes
+
+===============================================================================================================================================================
+
+Q.2> Find all empty files under /var/log
+
+A.2> find /var/log -type f -empty
+
+-empty: finds empty files
+Can also use -size 0 for the same effect
+
+===================================================================================================================================================================
+
+Q.3> Find all files in /home that were modified in the last 2 days.
+
+A.3> find /home -type f -mtime -2
+
+-mtime -2: modified less than 2 days ago
+-type f: only files
+
+==================================================================================================================================================================
+
+Q.4> Find all files in /tmp owned by user 'student' and delete them.
+
+A.4> find /tmp -type f -user student -exec rm -f {} \;
+
+-exec rm -f {} \;: deletes each file found
+
+====================================================================================================================================================================
+
+Q.5> Find all files in /opt that end with .conf and copy them to /backup/configs/.
+
+A.5> find /opt -type f -name "*.conf" -exec cp {} /backup/configs/ \;
+
+-name "*.conf": filename pattern
+Ensure /backup/configs/ exists
+
+====================================================================================================================================================================
+
+Q.6> Find all files with permission 777 under /shared.
+
+A.6> find /shared -type f -perm 0777
+
+-perm 0777: exact match for all permissions (rwxrwxrwx)
+
+==================================================================================================================================================================
+
+Q.7> Find all directories under /data that are exactly 2 levels deep.
+
+A.7> find /data -mindepth 2 -maxdepth 2 -type d
+
+-mindepth 2: skip top levels
+-maxdepth 2: limit depth
+-type d: only directories
+
+====================================================================================================================================================================
+
+Q.8> Find all symbolic links in the /usr directory.
+
+A.8> find /usr -type l
+
+find /usr -type l
+
+=====================================================================================================================================================================
+
+Q.9>  Find files under /var with inode number 123456.
+
+A.9> find /var -inum 123456
+
+inum: inode number of the file
+
+========================================================================================================================================================================
+
+Q.10> Find all files under /srv that have not been accessed in the last 30 days and move them to /archive.
+
+A.10> find /srv -type f -atime +30 -exec mv {} /archive/ \;
+
+-atime +30: accessed more than 30 days ago
+-exec mv {}: move the file
+
+
+==========================================================================================================================================================================
+
+Q.11> Find and delete all .log files in /var/log that are older than 7 days.
+
+A.11> find /var/log -name "*.log" -type f -mtime +7 -exec rm -f {} \;
+
+-name "*.log": matches .log files
+-mtime +7: modified more than 7 days ago
+-exec rm -f {} \;: deletes each file
+
+============================================================================================================================================================================
+
+Q.12> Find all files under /opt/app/ that are owned by user john and have permissions 600.
+
+A.12> find /opt/app/ -type f -user john -perm 600
+
+-user john: owner is john
+-perm 600: permission is exactly rw-------
+
+===========================================================================================================================================================================
+
+Q.13> Find all files under /data/ that are either .conf or .cfg files.
+
+A.13> find /data/ \( -name "*.conf" -o -name "*.cfg" \)
+
+\( ... \): group conditions
+-o: logical OR
+
+==========================================================================================================================================================================
+
+Q.14> Find all directories inside /srv/ that are writable by the group.
+
+A.14> find /srv/ -type d -perm -020
+
+-perm -020: any file/directory that has group write (g+w) permission
+
+==============================================================================================================================================================================
+
+Q.15> Find all files in /home that are not owned by any existing user (i.e., orphaned files).
+
+A.15> find /home -nouser
+
+-nouser: owner UID doesn't exist in /etc/passwd
+
+===============================================================================================================================================================================
+
+Q.16>  Find and copy files >1MB from /etc/ to /backup/etcfiles/
+
+A.16> find /etc/ -type f -size +1M -exec cp --parents {} /backup/etcfiles/ \;
+
+-size +1M: larger than 1MB
+--parents: preserves directory structure
+
+===============================================================================================================================================================================
+
+Q.17> Find all executable files under /usr/local/bin/.
+
+A.17> find /usr/local/bin/ -type f -executable
+
+-executable: files with x permission for current user
+
+===============================================================================================================================================================================
+
+Q.18> Find all symbolic links in /home and list their targets.
+
+A.18>  find /home -type l -exec ls -l {} \;
+
+-type l: symbolic links
+ls -l: shows where the link points
+
+=================================================================================================================================================================================
+
+Q.19> Find all files not modified in the last 90 days and compress them using xz.
+
+A.19> find /path/to/files -type f -mtime +90 -exec xz {} \;
+
+-mtime +90: older than 90 days
+xz {}: compresses files in-place
+
+=================================================================================================================================================================================
+
+Q.20> Find all hidden files under /root that are larger than 500KB.
+
+A.20> find /root -type f -name ".*" -size +500k
+
+-name ".*": hidden files
+-size +500k: larger than 500 kilobytes
+
+=================================================================================================================================================================================
+
+
+
+
