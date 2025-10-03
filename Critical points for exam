@@ -1,0 +1,47 @@
+Critical Points
+
+Repository = /etc/yum.repos.d/local.repo
+
+httpd = yum install httpd -y; systemctl enable httpd --now   
+        /etc/httpd/conf/httpd.conf after making changes systemctl restart httpd | httpd -t to see file configuration is good
+		
+selinux = yum install policycoreutils* -y;semanage port -l | grep http;semanage port -a -t http_port_t -p tcp 82 
+
+firewalld = yum install firewalld -y;systemctl start firewalld --now;firewall-cmd --permanent --add-port=82/tcp
+            after making changes firewall-cmd--reload
+
+crom = yum install cronie -y; systemctl status crond
+      /etc/cron.deny after making changes systemctl restart crond
+	  
+NTP = yum install chrony* -y; systemctl enable chronyd --now
+      /etc/chrony.conf after making changes systemctl restart chronyd  | chronyc sources to validate
+
+password = vi /etc/login.defs -> PASS_MAX_DAYS 20 -> :wq!
+
+umask = Switch to user -> cd /home/user -> ls -alrt -> vi .bash_profile -> enter umask <value> just after fi > :wq! -> source .bash_profile
+
+AUTOFS = yum install nfs-utils nfs4-acl-tools autofs -y; systemctl enable autofs –now; systemctl enable rpcbind –now
+         /etc/auto.master
+         /etc/auto.misc
+         showmount -e <SERVER_IP>
+
+TUNED = yum install tuned -y; systemctl enable tuned --now
+        
+
+PODMAN = yum install podman container-tools -y; systemctl enable podman --now
+		 loginctl show-user Sophia
+		 loginctl enable-linger
+		 mkdir -p /home/Sophia/.config/systemd/user
+		 cd /home/Sophia/.config/systemd/user
+		 podman generate systemd --name container24 --files –new
+		 systemctl --user daemon-reload
+         systemctl --user start container-container24.service
+         systemctl --user enable container-container24.service
+         systemctl --user status container-container24.service
+		 systemctl --user stop container-container24.service then reboot the machine | container should start automatically after reboot
+		 
+		 
+
+If your goal is to copy large regular files while preserving permissions and seeing the progress, you should combine both ideas:
+
+find /etc/ -size +4M -type f -exec cp -pvf {} /find/largefiles/ \;
