@@ -1,0 +1,135 @@
+
+
+Q.1> Create a compressed archive file /root/etc_backup.tar.gz of the /etc directory using gzip compression.
+
+A.1> tar -czvf /root/etc_backup.tar.gz /etc
+
+c → create
+z → gzip compression
+v → verbose
+f → filename
+
+===================================================================================================================================================================
+
+Q.2> Extract the above archive /root/etc_backup.tar.gz into /tmp/etc_restore.
+
+A.2> mkdir -p /tmp/etc_restore
+     tar -xzvf /root/etc_backup.tar.gz -C /tmp/etc_restore
+
+x → extract
+z → gzip decompression
+C → target directory
+
+=================================================================================================================================================================
+
+Q.3> Create an archive /root/home_backup.tar.bz2 of the /home directory using bzip2 compression.
+
+A.3> tar -cjvf /root/home_backup.tar.bz2 /home
+
+j → bzip2 compression
+
+================================================================================================================================================================
+
+Q.4> List the contents of the archive /root/home_backup.tar.bz2 without extracting it.
+
+A.4> tar -tjvf /root/home_backup.tar.bz2
+
+t → list
+
+==================================================================================================================================================================
+
+Q.5> You have a file /root/logs.tar.xz. Extract it into /opt/logs.
+
+A.5>  mkdir -p /opt/logs
+     tar -xJvf /root/logs.tar.xz -C /opt/logs
+
+J → xz compression
+
+==================================================================================================================================================================
+
+Q.6> Create a tar archive /root/multiple.tar containing the files /etc/hosts, /etc/passwd, and /etc/fstab.
+
+A.6> tar -cvf /root/multiple.tar /etc/hosts /etc/passwd /etc/fstab
+
+===================================================================================================================================================================
+
+Q.7> Add a new file /etc/resolv.conf to the existing archive /root/multiple.tar.
+
+A.7> tar -rvf /root/multiple.tar /etc/resolv.conf
+
+r → append file(s) to existing tar archive
+
+===================================================================================================================================================================
+
+Q.8> What command would you use to compress a single file /var/log/messages using gzip, and then decompress it back?
+
+A.8> 
+gzip /var/log/messages      # creates /var/log/messages.gz
+gunzip /var/log/messages.gz # restores original file
+
+======================================================================================================================================================================
+
+Q.9> Compress the archive /root/etc_archive.tar using gzip. Name it /root/etc_archive.tar.gz.
+
+A.9> tar -cvf /root/etc_archive.tar /etc/passwd /etc/group /etc/fstab
+
+=========================================================================================================================================================================
+
+Q.10> Extract /root/etc_archive.tar.gz into /tmp/etc_extract.
+
+A.10> mkdir -p /tmp/etc_extract
+      tar -xzvf /root/etc_archive.tar.gz -C /tmp/etc_extract
+
+x → extract
+z → use gzip
+C → extract to target directory
+      
+========================================================================================================================================================================
+
+Q.11> Create a tar archive /root/home.tar.bz2 of the /home directory using bzip2 compression.
+
+A.11> tar -cjvf /root/home.tar.bz2 /home
+
+=========================================================================================================================================================================
+
+Q.12> Create an archive /root/logs.tar.xz of /var/log using xz compression.
+
+A.12> tar -cJvf /root/logs.tar.xz /var/log
+
+J → use xz compression (best compression ratio)
+
+===========================================================================================================================================================================
+
+Q.13> Add /etc/hosts to the existing uncompressed archive /root/etc_archive.tar.
+
+A.13> tar -rvf /root/etc_archive.tar /etc/hosts
+
+r → append to an existing (uncompressed) tar
+⚠️ Note: You cannot append to compressed archives (.tar.gz, .tar.bz2, .tar.xz).
+
+============================================================================================================================================================================
+
+Q.14> Extract /root/logs.tar.xz into /opt/logs_restore.
+
+A.14> mkdir -p /opt/logs_restore
+      tar -xJvf /root/logs.tar.xz -C /opt/logs_restore
+
+==========================================================================================================================================================================
+
+Q.15> Create a tar archive /root/multiple_files.tar containing /etc/passwd, /etc/group, /etc/fstab, but exclude files ending with .bak.
+
+A.15> tar -cvf /root/multiple_files.tar /etc/passwd /etc/group /etc/fstab --exclude='*.bak'
+
+--exclude skips files matching pattern (e.g., *.bak)
+
+============================================================================================================================================================================
+
+Q.16> Compress a single file /var/log/messages using gzip, then decompress it back to verify it’s restored.
+
+A.16>
+
+gzip /var/log/messages
+gunzip /var/log/messages.gz
+
+gzip compresses single files only
+gunzip decompresses them back
