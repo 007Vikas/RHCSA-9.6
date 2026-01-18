@@ -1,0 +1,101 @@
+✔ Copy directory                    -r   Use -r for directories
+✔ Best for backup                   -a   Always use -a for backups
+✔ Preserve attributes               -a
+✔ Ask before overwriting              -i
+✔ Show progress                     -v
+✔ Copy only newer files             -u
+✔ Contents only → /.
+✔ Hidden files → never use * alone
+
+===========================================================================================================================
+
+Q.1> Copy /etc/hosts to /root/hosts.bak and keep all attributes.
+
+A.1> cp -p /etc/hosts /root/hosts.bak
+
+-p preserves permissions, ownership, and timestamps.
+
+===========================================================================================================================
+
+Q.2> Copy /var/log to /backup/log.
+
+A.2> cp -r /var/log /backup/log
+
+Directories require -r or -R.
+
+===========================================================================================================================
+
+Q.3> Create an exact backup of /etc to /backup/etc.
+
+A.3> cp -a /etc /backup/etc
+
+-a (archive) preserves:
+permissions
+ownership
+timestamps
+symlinks
+
+==========================================================================================================================
+
+Q.4> Create a backup of /etc in /backup/etc preserving all file attributes.
+
+A.4> cp -a /etc /backup/etc
+
+===========================================================================================================================
+
+Q.5> Copy the file /var/log/messages to /root/messages.bak and keep permissions and ownership.
+
+A.5> cp -p /var/log/messages /root/messages.bak
+
+===========================================================================================================================
+
+Q.6> Copy all files from /data to /archive/data without copying the directory itself.
+
+A.6> cp -a /data/. /archive/data/
+
+============================================================================================================================
+
+Q.7> Copy the directory /opt/scripts to /mnt/scripts and show each copied file on the terminal.
+
+A.7> cp -av /opt/scripts /mnt/scripts
+
+==========================================================================================================================
+
+Q.8> Copy all .conf files from /etc to /tmp/conf_backup.
+
+A.8> cp /etc/*.conf /tmp/conf_backup/
+
+===========================================================================================================================
+
+Q.9> Copy /home/user1 to /backup/user1 so that symbolic links are preserved.
+
+A.9> cp -a /home/user1 /backup/user1
+
+===========================================================================================================================
+
+Q.10> Copy files from /source to /destination only if the source files are newer.
+
+A.10> cp -ru /source/. /destination/
+
+=========================================================================================================================
+
+Q.11> Copy the file report.txt to /data but prompt before overwriting an existing file.
+
+A.11> cp -i report.txt /data/
+
+==========================================================================================================================
+
+Q.12> Copy all files (including hidden files) from /project to /backup/project.
+
+A.12> cp -a /project/. /backup/project/
+
+==============================================================================================================================
+
+Q.13>The following command failed. Fix it:cp /var/log /tmp/log_backup
+
+A.13> cp -r /var/log /tmp/log_backup
+
+Directories require -r or -R.
+
+=================================================================================================================================
+
