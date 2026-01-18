@@ -1,4 +1,15 @@
 
+✅ c → create
+✅ x → extract
+✅ z → gzip compression
+✅ j → bzip2 compression
+✅ J → xz compression
+✅ v → verbose
+✅ f → filename
+✅ t → list
+✅ r → append file(s) to existing tar archive
+
+=================================================================================================================
 
 Q.1> Create a compressed archive file /root/etc_backup.tar.gz of the /etc directory using gzip compression.
 
